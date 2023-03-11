@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>Coffee Menu</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="/css/comm.css">
+  <link rel="stylesheet" type="text/css" href="/css/coffee.css">
+
+</head>
+<body>
+
+<!-- 헤더 위치 -->
+<div class="topnav">
+  <a href="/home/home.html">Home</a>
+  <a href="/menu/menu.html">커피메뉴</a>
+  <a href="/order/order.html">주문내역</a>
+  <a href="/member/member.html">고객정보</a>
+</div>
+
+
+<div id="main" style="font-size:large; text-align: center; ">
+
+  <div id="search" style="height: 150px;padding: 15px; font-size: small; width: 90%; margin-left: auto;  margin-right: auto;">
+    <h3>[ Coffee menu Management <span style="font-size:30px;">&#9749;</span> ]</h3>
+
+    <form name="fm_menu" autocomplete="on">
+      <fieldset>
+
+        <legend> [검색조건] </legend>
+        <label>등록기간</label><input type="date" id="start_date" name="start_date" min="2020-01-01" max="2023-12-31">
+        - <input type="date" id="end_date" name="end_date" min="2020-01-01" max="2023-12-31">
+        &nbsp;&nbsp;
+        <label>메뉴명</label> <input type="text" id="name" name="name">
+        &nbsp;&nbsp;
+        <label>종류</label> <select id="kind" name="kind">
+        <option value="ALL">전체</option>
+        <option value="1.커피">1.커피</option>
+        <option value="2.에이드">2.에이드</option>
+        <option value="3.스무디">3.스무디</option>
+      </select>
+
+        &nbsp;&nbsp;<input type="submit" value="조회" style="width: 80px;height: 30px;font-weight: bold; font-size: medium">
+        &nbsp;&nbsp;<button style="width: 80px;height: 30px;font-weight: bold; font-size: medium"><a href="~~~">등록</a></button>
+        &nbsp;&nbsp;<button style="width: 80px;height: 30px;font-weight: bold; font-size: medium"><a href="~~~">삭제</a></button>
+        <!-- <a href="javascript:loadDocArray()">test</a> -->
+        <!--        <label>CheckBox : </label><span id="idCheckBox"></span>-->
+      </fieldset>
+
+    </form>
+
+
+  </div>
+
+
+  <table class="table">
+    <thead>
+      <tr class="tr_td">
+        <th>Chk</th>
+        <th>커피No</th>
+        <th>메뉴명</th>
+        <th>종류</th>
+        <th>가격</th>
+        <th>등록일</th>
+        <th>수정일</th>
+        <th>수정</th>
+        <th>삭제</th>
+      </tr>
+    </thead>
+
+
+    <tbody id="t_body">
+    <!--- 데이타 출력 부분 -->
+      <tr class="tr_td">
+        <td>Chk</td>
+        <th>커피No</th>
+        <td>메뉴명</td>
+        <td>종류</td>
+        <td>가격</td>
+        <td>등록일</td>
+        <td>수정일</td>
+        <td>수정</td>
+        <td>삭제</td>
+      </tr>
+
+      <tr class="tr_td">
+        <td>Chk</td>
+        <th>커피No</th>
+        <td>메뉴명</td>
+        <td>종류</td>
+        <td>가격</td>
+        <td>등록일</td>
+        <td>수정일</td>
+        <td>수정</td>
+        <td>삭제</td>
+      </tr>
+
+      <tr class="tr_td">
+        <td>Chk</td>
+        <th>커피No</th>
+        <td>메뉴명</td>
+        <td>종류</td>
+        <td>가격</td>
+        <td>등록일</td>
+        <td>수정일</td>
+        <td>수정</td>
+        <td>삭제</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 푸터 위치 -->
+<div class="footer">
+  <!--    https://www.w3schools.com/html/html_emojis.asp   -->
+  <h4>[Footer] <span style="font-size:30px;">&#9973;</span> Spring boot 항해 ~ with Me</h4>
+</div>
+
+</body>
+</html>
+
+

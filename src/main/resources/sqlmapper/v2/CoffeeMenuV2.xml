@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.Sailing.v2.dao.MenuDaoV2">
+    <!-- 메뉴 조회 -->
+    <select id="doList" resultType="com.boot.Sailing.v2.vo.Coffee_menu">
+        select no, coffee, kind, price,
+        DATE_FORMAT(reg_day,'%Y.%m.%d') AS reg_day,
+        DATE_FORMAT(mod_day,'%Y.%m.%d') AS mod_day
+        FROM coffee_menu
+    </select>
+
+    <!-- 메뉴 조회 One row -->
+    <select id="doListOne" resultType="map">
+        select no, coffee, kind, price,
+        DATE_FORMAT(reg_day,'%Y.%m.%d') AS reg_day,
+        DATE_FORMAT(mod_day,'%Y.%m.%d') AS mod_day
+        FROM coffee_menu
+        where no = CAST(#{strNo} as INTEGER)
+    </select>
+
+    <!--
+        <![CDATA[   ]]> : xml파싱에 관여하지않도록 ex) < , >
+
+        < %lt
+        > %gt
+    -->
+    <!-- 조건 메뉴 조회  -->
+    <select id="doSearch" resultType="com.boot.Sailing.v2.vo.Coffee_menu">
+        select no, coffee, kind, price,
+        DATE_FORMAT(reg_day,'%Y.%m.%d') AS reg_day,
+        DATE_FORMAT(mod_day,'%Y.%m.%d') AS mod_day
+        FROM coffee_menu
+        WHERE 1=1
+        AND reg_day >= DATE_FORMAT(#{strStartDate},'%Y%m%d')
+        AND reg_day &lt; DATE_ADD(DATE_FORMAT(#{strEndDate},'%Y%m%d'), INTERVAL +1 DAY)
+        <if test="strCoffee != 'ALL'">
+            AND coffee like CONCAT(#{strCoffee},'%')
+        </if>
+        <if test="strKind != 'ALL'">
+            AND kind = #{strKind}
+        </if>
+    </select>
+
+    <insert id="doInsert">
+        insert into coffee_menu (coffee, kind, price)
+        values (#{coffee},#{kind},CAST(#{price} as INTEGER))
+    </insert>
+
+
+    <delete id="doDelete">
+        delete from coffee_menu where no = CAST(#{strNo} as INTEGER)
+    </delete>
+
+    <update id="doUpdate">
+        update coffee_menu
+        set
+        coffee = #{coffee},
+        kind = #{kind},
+        price = CAST(#{price} as INTEGER)
+        where no = CAST(#{no} as INTEGER)
+    </update>
+
+    <!--    가격 수정-->
+    <update id="doUpdatePrice">
+        update coffee_menu set
+        price = CAST(#{strPrice} as INTEGER)
+        where no = CAST(#{strNo} as INTEGER)
+    </update>
+
+    <!-- 가격 수정 로그 -->
+    <insert id="doInsertLog">
+        insert into log (coffee_no,price)
+        values (#{strNo},CAST(#{strPrice} as INTEGER))
+    </insert>
+
+    <!--    가격 수정 one -->
+    <update id="doUpdatePriceOne">
+        update coffee_menu set
+        price = CAST(#{strPrice} as INTEGER)
+        <where>
+            <foreach item="item" index="index" collection="chkList"
+                     open="no in (" separator="," close=")" nullable="true">
+                #{item}
+            </foreach>
+        </where>
+    </update>
+
+    <!-- 가격 수정 로그 one -->
+    <insert id="doInsertLogOne">
+        insert into coffee_menu_log (coffee_no,price)
+        <foreach item="item" index="index" collection="chkList" separator="UNION ALL " nullable="true">
+            SELECT #{item},CAST(#{strPrice} as INTEGER) from dual
+        </foreach>
+    </insert>
+
+    <!-- boot 로그 -->
+    <insert id="doBootLog">
+        insert into boot_log (class)
+        values (#{strClass})
+    </insert>
+
+
+</mapper>
+
+
+
